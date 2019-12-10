@@ -74,6 +74,8 @@ public class AddActivity extends AppCompatActivity {
             public void onClick(View view) {
                 databaseReference.push().setValue(new Note(mtitle.getText().toString(), mtext.getText().toString()));
                 Toast.makeText(AddActivity.this, "Note Saved", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

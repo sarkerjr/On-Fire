@@ -33,6 +33,7 @@ public class EditActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference databaseReference1;
     DatabaseReference databaseReference2;
+    DatabaseReference databaseReference3;
     FirebaseUser user;
 
     @Override
@@ -41,6 +42,7 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         updateButton = findViewById(R.id.updateButton);
+        deleteButton = findViewById(R.id.deleteButton);
 
         //Get the associated login user info
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -69,7 +71,22 @@ public class EditActivity extends AppCompatActivity {
                 databaseReference2 = database.getReference().child("notes").child(user.getUid()).child(keyUID).child("text");
                 databaseReference2.setValue(textEdit.getText().toString());
 
-                Toast.makeText(EditActivity.this, keyUID, Toast.LENGTH_LONG).show();
+                Toast.makeText(EditActivity.this, "Update Value", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference3 = database.getReference().child("notes").child(user.getUid()).child(keyUID);
+                databaseReference3.removeValue();
+                Toast.makeText(EditActivity.this, "Data Removed", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
