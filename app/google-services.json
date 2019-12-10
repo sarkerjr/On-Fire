@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "278191637991",
+    "firebase_url": "https://on-fire-277da.firebaseio.com",
+    "project_id": "on-fire-277da",
+    "storage_bucket": "on-fire-277da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278191637991:android:68af6f0008c65b1f602942",
+        "android_client_info": {
+          "package_name": "com.sarkerjr.onfire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278191637991-t86r76mmc5op3lv12pnmfmjlr94p87ne.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sarkerjr.onfire",
+            "certificate_hash": "7e490beb4679f7bbcfedeecd5a530594925cdc4f"
+          }
+        },
+        {
+          "client_id": "278191637991-e4ib0p65vsv6ov8lkpgujkdnflufciv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7zBH3hvHkRzNqT3D1PNt-YpjuX3C_pq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278191637991-e4ib0p65vsv6ov8lkpgujkdnflufciv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
