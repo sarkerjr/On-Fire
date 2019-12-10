@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,8 +29,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN = 100;
     ListView listView;
-    ArrayList<String> titlesArray;
-    ArrayAdapter<String> adapter;
+    ArrayList<NotenNodes> titlesArray;
+    NoteAdapter adapter;
 
     FirebaseDatabase database;
     DatabaseReference databaseReference;
@@ -51,14 +53,16 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = database.getReference().child("notes").child(user.getUid());
 
         //Adding adapter to the list of titles
-        adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, titlesArray);
+        titlesArray = new ArrayList<NotenNodes>();
+        adapter = new NoteAdapter(this, titlesArray);
         listView.setAdapter(adapter);
 
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Note notes = dataSnapshot.getValue(Note.class);
-                titlesArray.add(dataSnapshot.getKey());
+                NotenNodes notenNodes = new NotenNodes(notes.getTitle(), notes.getText(),dataSnapshot.getKey());
+                titlesArray.add(notenNodes);
                 adapter.notifyDataSetChanged();
             }
 
@@ -84,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
         };
 
         databaseReference.addChildEventListener(childEventListener);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                NotenNodes notenNodes = titlesArray.get(i);
+
+                String title = notenNodes.getTitle();
+                String text = notenNodes.getText();
+                String key = notenNodes.getKey();
+
+                Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                intent.putExtra("Title", title);
+                intent.putExtra("Text", text);
+                intent.putExtra("KeyUID", key);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -109,5 +130,4 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
